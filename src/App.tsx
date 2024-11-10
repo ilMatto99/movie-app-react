@@ -1,38 +1,24 @@
-import {MovieCards} from './components/MovieCard'
+import { MovieCards } from './components/MovieCard'
 import './App.css'
-import { MovieType } from './type/movieTypes'
+import { getMovies } from './api/movies'
 
 // creazione di un array di elementi
-function App() { 
-  const movieMock: MovieType[] = [
-    {
-      id: 1,
-      title: "Il Signore degli Anelli"
-    },
-    {
-      id: 2,
-      title: "Harry Potter",
-    },
-    {
-      id: 3,
-      title: "The Avengers"
-    }
-  ]
-  
-
+function App() {
+  const movieMock = getMovies();
+  console.log("Sono nelcomponente App");
   return (
     <div>
-
+      <h1>Questo è il componente React che rappresenta l'intera applicazione</h1>
       {
-        movieMock.map((movie) => {
-          return <MovieCards idMovie = {movie.id} titleMovie = {movie.title} />
+        movieMock.map((Movie) => {
+          return <MovieCards key={Movie.id} Movie={Movie} />
         })
       }
-      
-    </div>
 
+    </div>
   )
 }
+
 
 
 export default App
