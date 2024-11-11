@@ -6,37 +6,44 @@ type MovieCardProps = {
 
 
 /**
- * Movie Card è un componente che deve ricevere dei dati:
- * - idMovie: è un numero che rappresenta l'id el film
- * - titleMovie: una stringa che rappresenta un titolo del film
+ * MovieCard è un componente che deve ricevere tre dati:
+ * -idMovie: number un numero che rappresenta l'id del film
+ * -titleMovie: string il titolo del film
+ * -description: string la descrizione del film
  * 
- * Le funzioni che rappresentano i componenti react in typescript    
- * 
+ * Le funzioni che rappresentano i componenti React in TypeScript ricevo un solo parametro, 
+ * props, che è un oggetto che contiene tutte le proprietà passate al componente.
  */
+ 
 
-/* 1) Modificare un movie type in modo che possa contenree un movi di omdb
-   2) implementare getMovies in modo che faccia una chiamta fetch a OMDB API
-*/
 export const MovieCards = ({ Movie }: MovieCardProps) => {
-    // const {idMovie, titleMovie} = props;
+
+     // Se il valore della variabile deve essere visualizzato aggiornando la UI
+    // è necessario usare una variabile di stato.
+    // La varabile di stato è un array con due elementi e viene dichiarata con useState()
     const [clickCount, setClickCount] = useState(0);
 
-    const handleClickCount = () => {
-
+    /*const handleClickCount = () => {
+        // Una variabile di stato è 'immutabile', non può essere modificata direttamente 
+        // con un'istruzione di assegnazione come ad esempio clickCount = clickCount + 1;
+        // Per aggiornare il suo valore devo usare la funzione setClickCount (restituita da useState)
+        // passando il nuovo valore come parametro.
         setClickCount(clickCount + 1); // setClickCount è asincrona
         console.log(`Click count: ${clickCount}`);
-    }
-
+    }*/
+    
+    // Per convenzione usiamo il prefisso handle per le funzioni che gestiscono eventi
     const handleClick = (message: string) => {
         console.log(`Cliccato ${message}`);
+        setClickCount(clickCount+1);
     }
 
 
     return (
         <div style={{ backgroundColor: 'red' }}>
-            <h1> {Movie.id} </h1>
+            <h1> {Movie.title} </h1>
+            <img src= {`https://image.tmdb.org/t/p/w500${Movie.backdrop_path}`}/>
             <p onClick={() => handleClick(Movie.title)}>{Movie.title} </p>
-            <p onClick={() => handleClick(Movie.description)}>{Movie.description} </p>
             <p>Numero di click: {clickCount}</p>
         </div>
     );
